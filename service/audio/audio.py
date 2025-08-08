@@ -28,7 +28,7 @@ from typing import Optional, Sequence, Tuple
 
 import config as ConfigService
 from faster_whisper import WhisperModel
-from iso639 import languages
+from iso639 import language
 import pandas as pd
 import storage as StorageService
 import utils as Utils

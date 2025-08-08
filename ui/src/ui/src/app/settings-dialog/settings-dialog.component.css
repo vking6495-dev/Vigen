@@ -1,0 +1,27 @@
+/* Container for the settings panel content */
+.settings-container {
+  padding: 1rem;
+}
+.logo-section {
+  text-align: center;
+}
+.logo-section img {
+  max-height: 80px;
+  margin-bottom: 1rem;
+}
+.colorPickerSec {
+  margin-top: 1rem;
+}
+.colorPickerSec label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8px;
+}
+.colorPickerSec input[type="color"] {
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 3em;
+  background: none;
+  cursor: pointer;
+}
