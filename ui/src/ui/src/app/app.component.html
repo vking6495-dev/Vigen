@@ -32,6 +32,15 @@ limitations under the License.
     ></span
   >
   <span style="margin-left: auto"></span>
+  <span #settingsButtonSpan>
+    <button
+      mat-icon-button
+      matTooltip="App Settings"
+      (click)="openSettingsDialog()"
+    >
+      <mat-icon>settings</mat-icon>
+    </button>
+  </span>
   <span #renderQueueButtonSpan>
     <button
       mat-icon-button
@@ -55,6 +64,7 @@ limitations under the License.
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <mat-sidenav-container style="height: calc(100% - 68px)">
+  <!-- Settings sidenav removed; now using dialog -->
   <mat-sidenav-content>
     <mat-expansion-panel #videoUploadPanel expanded>
       <mat-expansion-panel-header>

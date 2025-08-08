@@ -291,3 +291,35 @@ def get_media_duration(input_file_path: str) -> float:
       description=f'get duration of [{input_file_path}] with ffprobe',
   )
   return float(output)
+
+def get_signed_uri_from_gcs_uri(uri: str):
+  """Converts a full GCS URI into a temporary signed URL.
+
+  This is a convenience function that takes a GCS URI (e.g., 'gs://...'),
+  extracts the blob name, and then generates a v4 signed URL for it.
+
+  Args:
+      uri (str): The complete GCS URI for the desired object.
+
+  Returns:
+      str: A temporary, publicly accessible signed URL to download the object.
+  """
+  if os.getenv("ENV") == "dev":
+    url = get_mtls_uri_from_gcs_uri(uri)
+  else:
+    blob_name = get_blob_name_from_gcs_uri(uri)
+    url = storage_service.storage_service.generate_signed_url(blob_name)
+  return url
+
+def get_mtls_uri_from_gcs_uri(uri: str):
+  """
+  Converts a GCS URI back to a sign mtls URI.
+
+  Args:
+      uri: The GCS URI (e.g., "gs://my-bucket/path/to/file").
+
+  Returns:
+      The signed mtls URI (e.g.,
+           "https://storage.mtls.cloud.google.com/my-bucket/path/to/file").
+  """
+  return uri.replace("gs://", "https://storage.mtls.cloud.google.com/")

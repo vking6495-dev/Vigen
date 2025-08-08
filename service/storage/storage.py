@@ -284,3 +284,30 @@ def download_gcs_dir(
       output_dir,
   )
   return count_files
+
+def generate_signed_url(self, blob_name: str) -> str:
+    """Generates a v4 signed URL for a GCS blob.
+
+    This creates a temporary URL to grant GET access to an object for a
+    limited time. The service account running this code needs permissions
+    to sign URLs and read the object.
+
+    Args:
+        blob_name (str): The name of the object to be accessed.
+
+    Returns:
+        str: A signed URL valid for 48 hours (2880 minutes).
+    """
+    credentials, _ = google.auth.default()
+    credentials.refresh(google.auth.transport.requests.Request())
+    blob = self.bucket.blob(blob_name)
+    # Sign URL
+    url = blob.generate_signed_url(
+        version="v4",
+        expiration=datetime.timedelta(minutes=2880),
+        service_account_email=credentials.service_account_email,
+        access_token=credentials.token,
+        method="GET",
+    )
+    logging.info("Signed URI: %s", url)
+    return url

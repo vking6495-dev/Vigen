@@ -74,6 +74,7 @@ import { FileChooserComponent } from './file-chooser/file-chooser.component';
 import { SmartFramingDialog } from './framing-dialog/framing-dialog.component';
 import { SegmentsListComponent } from './segments-list/segments-list.component';
 import { VideoComboComponent } from './video-combo/video-combo.component';
+import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 
 type ProcessStatus = 'hourglass_top' | 'pending' | 'check_circle';
 
@@ -115,11 +116,19 @@ export type FramingDialogData = {
     MatDialogModule,
     MatProgressSpinnerModule,
     CdkDrag,
+    SettingsDialogComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  // Removed settingsSidenav logic; now using dialog
+
+  openSettingsDialog() {
+    this.dialog.open(SettingsDialogComponent, {
+      width: '800px',
+    });
+  }
   loading = false;
   generatingVariants = false;
   rendering = false;
